@@ -591,11 +591,18 @@ function toggle(i) {
   setTimeout(() => { allNodes[i].scrollIntoView({behavior:'smooth',block:'nearest'}); }, 50);
 }
 
-fetchVotes().then(counts => {
-  globalCounts = counts;
-  userVotes = JSON.parse(localStorage.getItem('jiang_votes') || '{}');
-  build();
-  renderLivePanel(counts);
+document.addEventListener('DOMContentLoaded', function() {
+  fetchVotes().then(counts => {
+    globalCounts = counts;
+    userVotes = JSON.parse(localStorage.getItem('jiang_votes') || '{}');
+    build();
+    renderLivePanel(counts);
+  }).catch(err => {
+    console.error('Init error:', err);
+    globalCounts = {};
+    userVotes = JSON.parse(localStorage.getItem('jiang_votes') || '{}');
+    build();
+  });
 });
 </script>
 </body>
