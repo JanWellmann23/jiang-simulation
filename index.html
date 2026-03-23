@@ -3,251 +3,136 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="A geopolitical cascade simulation based on Professor Jiang Xueqin's eschatological convergence framework. Ten dominoes. One direction.">
+<meta name="description" content="Professor Jiang Xueqin's Law of Eschatological Convergence mapped as an interactive cascade. Ten dominoes. One direction.">
 <meta property="og:title" content="The Jiang Simulation">
-<meta property="og:description" content="Ten dominoes. One direction. Click each event to read the full context.">
+<meta property="og:description" content="Ten dominoes. One direction. The geopolitical cascade nobody wants to believe is on schedule.">
 <meta property="og:type" content="website">
+<meta property="og:url" content="https://thesimulationgame.quest">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The Jiang Simulation">
+<meta name="twitter:description" content="Ten dominoes. One direction. Click each event to read the full context.">
 <title>The Jiang Simulation</title>
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  :root {
-    --bg: #ffffff;
-    --bg2: #f5f4f0;
-    --bg3: #eeecea;
-    --text: #1a1a18;
-    --text2: #5a5a56;
-    --text3: #8a8a84;
-    --border: rgba(0,0,0,0.12);
-    --border2: rgba(0,0,0,0.22);
-    --radius: 12px;
-    --radius-sm: 8px;
-    --radius-pill: 20px;
-    --font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
-  }
-
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --bg: #1a1a18;
-      --bg2: #242420;
-      --bg3: #2e2e2a;
-      --text: #e8e6e0;
-      --text2: #a0a09a;
-      --text3: #666662;
-      --border: rgba(255,255,255,0.1);
-      --border2: rgba(255,255,255,0.2);
-    }
-    .tag-war { background: #712B13; color: #F5C4B3; border-color: #993C1D; }
-    .tag-econ { background: #633806; color: #FAC775; border-color: #854F0B; }
-    .tag-relig { background: #3C3489; color: #CECBF6; border-color: #534AB7; }
-    .tag-geo { background: #0C447C; color: #B5D4F4; border-color: #185FA5; }
-    .tag-end { background: #085041; color: #9FE1CB; border-color: #0F6E56; }
-  }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    font-family: var(--font);
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-    line-height: 1.6;
-  }
-
-  header {
-    padding: 4rem 1.5rem 3rem;
-    max-width: 680px;
-    margin: 0 auto;
-  }
-
-  .eyebrow {
-    font-size: 11px;
-    font-weight: 500;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--text3);
-    margin-bottom: 1rem;
-  }
-
-  h1 {
-    font-size: clamp(2rem, 6vw, 3.2rem);
-    font-weight: 600;
-    letter-spacing: -0.02em;
-    line-height: 1.1;
-    color: var(--text);
-    margin-bottom: 1.25rem;
-  }
-
-  .subtitle {
-    font-size: 1rem;
-    color: var(--text2);
-    line-height: 1.65;
-    max-width: 520px;
-    margin-bottom: 2rem;
-  }
-
-  .legend {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-bottom: 0.5rem;
-  }
-
-  .tag {
-    font-size: 11px;
-    font-weight: 500;
-    padding: 4px 10px;
-    border-radius: var(--radius-pill);
-    border: 0.5px solid transparent;
-    white-space: nowrap;
-  }
-
-  .tag-war   { background: #FAECE7; color: #712B13; border-color: #F0997B; }
-  .tag-econ  { background: #FAEEDA; color: #633806; border-color: #EF9F27; }
-  .tag-relig { background: #EEEDFE; color: #3C3489; border-color: #AFA9EC; }
-  .tag-geo   { background: #E6F1FB; color: #0C447C; border-color: #85B7EB; }
-  .tag-end   { background: #E1F5EE; color: #085041; border-color: #5DCAA5; }
-
-  .cascade {
-    padding: 0 1.5rem 5rem;
-    max-width: 680px;
-    margin: 0 auto;
-  }
-
-  .node-wrap {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .node {
-    background: var(--bg);
-    border: 0.5px solid var(--border);
-    border-radius: var(--radius);
-    padding: 16px 20px;
-    cursor: pointer;
-    transition: border-color 0.15s, background 0.15s;
-    user-select: none;
-    -webkit-tap-highlight-color: transparent;
-  }
-
-  .node:hover { border-color: var(--border2); background: var(--bg2); }
-
-  .node.active { border-width: 1.5px; background: var(--bg2); }
-  .node.active-war   { border-color: #D85A30; }
-  .node.active-econ  { border-color: #BA7517; }
-  .node.active-relig { border-color: #7F77DD; }
-  .node.active-geo   { border-color: #378ADD; }
-  .node.active-end   { border-color: #1D9E75; }
-
-  .node-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-  }
-
-  .node-left {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    flex: 1;
-    min-width: 0;
-  }
-
-  .node-text { flex: 1; min-width: 0; }
-
-  .node-title {
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--text);
-  }
-
-  .node-sub {
-    font-size: 12px;
-    color: var(--text2);
-    margin-top: 2px;
-  }
-
-  .chevron {
-    color: var(--text3);
-    font-size: 11px;
-    transition: transform 0.2s;
-    flex-shrink: 0;
-    margin-left: 4px;
-  }
-
-  .node.active .chevron { transform: rotate(180deg); }
-
-  .detail {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.38s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  .detail.open { max-height: 600px; }
-
-  .detail-inner {
-    padding: 14px 4px 8px 20px;
-    border-left: 2px solid var(--border);
-    margin: 10px 0 6px 16px;
-  }
-
-  .detail-inner p {
-    font-size: 13.5px;
-    color: var(--text2);
-    line-height: 1.7;
-    margin-bottom: 12px;
-  }
-
-  .detail-inner p:last-of-type { margin-bottom: 10px; }
-
-  .source-note {
-    font-size: 11px;
-    color: var(--text3);
-    font-style: italic;
-    margin-top: 6px;
-  }
-
-  .connector {
-    width: 1.5px;
-    height: 22px;
-    background: var(--border);
-    margin: 0 auto;
-  }
-
-  footer {
-    padding: 3rem 1.5rem;
-    max-width: 680px;
-    margin: 0 auto;
-    border-top: 0.5px solid var(--border);
-  }
-
-  .footer-note {
-    font-size: 12px;
-    color: var(--text3);
-    line-height: 1.7;
-  }
-
-  .footer-note a {
-    color: var(--text2);
-    text-decoration: underline;
-    text-underline-offset: 3px;
-  }
-
-  @media (max-width: 480px) {
-    header { padding: 2.5rem 1.25rem 2rem; }
-    .cascade { padding: 0 1.25rem 4rem; }
-    h1 { font-size: 1.9rem; }
-  }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+--bg:#ffffff;--bg2:#f5f4f0;--bg3:#eeecea;
+--text:#1a1a18;--text2:#5a5a56;--text3:#8a8a84;
+--border:rgba(0,0,0,0.12);--border2:rgba(0,0,0,0.22);--accent:#1a1a18;
+--radius:12px;--radius-sm:8px;--radius-pill:20px;
+--font:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
+}
+@media(prefers-color-scheme:dark){
+:root{--bg:#1a1a18;--bg2:#242420;--bg3:#2e2e2a;--text:#e8e6e0;--text2:#a0a09a;--text3:#666662;--border:rgba(255,255,255,0.1);--border2:rgba(255,255,255,0.2);--accent:#e8e6e0;}
+.tag-war{background:#712B13;color:#F5C4B3;border-color:#993C1D}
+.tag-econ{background:#633806;color:#FAC775;border-color:#854F0B}
+.tag-relig{background:#3C3489;color:#CECBF6;border-color:#534AB7}
+.tag-geo{background:#0C447C;color:#B5D4F4;border-color:#185FA5}
+.tag-end{background:#085041;color:#9FE1CB;border-color:#0F6E56}
+.share-x{background:#2a2a28;color:#e8e6e0;border-color:rgba(255,255,255,0.15)}
+.share-tg{background:#0a3d5c;color:#B5D4F4;border-color:#185FA5}
+.share-copy{background:#242420;color:#a0a09a;border-color:rgba(255,255,255,0.1)}
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6}
+.page{max-width:660px;margin:0 auto;padding:0 1.25rem}
+header{padding:4rem 0 2.5rem}
+.eyebrow{font-size:11px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);margin-bottom:1rem}
+h1{font-size:clamp(2.2rem,7vw,3.4rem);font-weight:600;letter-spacing:-0.02em;line-height:1.08;color:var(--text);margin-bottom:1.25rem}
+.intro{font-size:1rem;color:var(--text2);line-height:1.7;margin-bottom:1.25rem}
+.intro a{color:var(--text);text-decoration:underline;text-underline-offset:3px}
+.byline{font-size:12px;color:var(--text3);margin-bottom:1.75rem}
+.byline a{color:var(--text2);text-decoration:underline;text-underline-offset:3px}
+.share-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:2rem}
+.share-btn{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:500;padding:7px 14px;border-radius:var(--radius-pill);border:0.5px solid transparent;cursor:pointer;text-decoration:none;transition:opacity 0.15s;font-family:var(--font)}
+.share-btn:hover{opacity:0.8}
+.share-x{background:#f0ede8;color:#1a1a18;border-color:rgba(0,0,0,0.15)}
+.share-tg{background:#E6F1FB;color:#0C447C;border-color:#85B7EB}
+.share-copy{background:var(--bg2);color:var(--text2);border-color:var(--border)}
+.share-icon{width:14px;height:14px;display:inline-block;flex-shrink:0}
+.legend-label{font-size:11px;color:var(--text3);margin-bottom:8px}
+.legend{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:0}
+.tag{font-size:11px;font-weight:500;padding:4px 10px;border-radius:var(--radius-pill);border:0.5px solid transparent;white-space:nowrap}
+.tag-war{background:#FAECE7;color:#712B13;border-color:#F0997B}
+.tag-econ{background:#FAEEDA;color:#633806;border-color:#EF9F27}
+.tag-relig{background:#EEEDFE;color:#3C3489;border-color:#AFA9EC}
+.tag-geo{background:#E6F1FB;color:#0C447C;border-color:#85B7EB}
+.tag-end{background:#E1F5EE;color:#085041;border-color:#5DCAA5}
+.divider{border:none;border-top:0.5px solid var(--border);margin:2rem 0}
+.about-box{background:var(--bg2);border:0.5px solid var(--border);border-radius:var(--radius);padding:1.25rem 1.5rem;margin:2rem 0}
+.about-box h2{font-size:13px;font-weight:500;color:var(--text);margin-bottom:0.75rem}
+.about-box p{font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:0.6rem}
+.about-box p:last-child{margin-bottom:0}
+.cascade{padding-bottom:1rem}
+.node-wrap{display:flex;flex-direction:column}
+.node{background:var(--bg);border:0.5px solid var(--border);border-radius:var(--radius);padding:15px 18px;cursor:pointer;transition:border-color 0.15s,background 0.15s;user-select:none;-webkit-tap-highlight-color:transparent}
+.node:hover{border-color:var(--border2);background:var(--bg2)}
+.node.active{border-width:1.5px;background:var(--bg2)}
+.node.active-war{border-color:#D85A30}
+.node.active-econ{border-color:#BA7517}
+.node.active-relig{border-color:#7F77DD}
+.node.active-geo{border-color:#378ADD}
+.node.active-end{border-color:#1D9E75}
+.node-header{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.node-left{display:flex;align-items:center;gap:10px;flex:1;min-width:0}
+.node-text{flex:1;min-width:0}
+.node-title{font-size:14px;font-weight:500;color:var(--text)}
+.node-sub{font-size:12px;color:var(--text2);margin-top:2px}
+.chevron{color:var(--text3);font-size:11px;transition:transform 0.2s;flex-shrink:0}
+.node.active .chevron{transform:rotate(180deg)}
+.detail{max-height:0;overflow:hidden;transition:max-height 0.38s cubic-bezier(0.4,0,0.2,1)}
+.detail.open{max-height:600px}
+.detail-inner{padding:14px 4px 8px 18px;border-left:2px solid var(--border);margin:10px 0 6px 14px}
+.detail-inner p{font-size:13.5px;color:var(--text2);line-height:1.72}
+.connector{width:1.5px;height:20px;background:var(--border);margin:0 auto}
+.email-box{background:var(--bg2);border:0.5px solid var(--border);border-radius:var(--radius);padding:1.5rem;margin:2.5rem 0}
+.email-box h2{font-size:15px;font-weight:500;color:var(--text);margin-bottom:0.4rem}
+.email-box p{font-size:13px;color:var(--text2);margin-bottom:1rem;line-height:1.6}
+.email-row{display:flex;gap:8px;flex-wrap:wrap}
+.email-input{flex:1;min-width:180px;padding:9px 14px;font-size:13px;border:0.5px solid var(--border2);border-radius:var(--radius-sm);background:var(--bg);color:var(--text);outline:none;font-family:var(--font)}
+.email-input:focus{border-color:var(--accent)}
+.email-btn{padding:9px 18px;font-size:13px;font-weight:500;border:0.5px solid var(--border2);border-radius:var(--radius-sm);background:var(--accent);color:var(--bg);cursor:pointer;font-family:var(--font);transition:opacity 0.15s;white-space:nowrap}
+.email-btn:hover{opacity:0.85}
+.email-confirm{font-size:13px;color:var(--text2);display:none;padding-top:4px}
+footer{padding:2rem 0 3rem;border-top:0.5px solid var(--border)}
+.footer-note{font-size:12px;color:var(--text3);line-height:1.7}
+.footer-links{display:flex;gap:16px;margin-top:1rem;flex-wrap:wrap}
+.footer-links a{font-size:12px;color:var(--text3);text-decoration:none}
+.footer-links a:hover{color:var(--text2)}
+@media(max-width:480px){
+header{padding:2.5rem 0 2rem}
+h1{font-size:2rem}
+.node{padding:13px 14px}
+.detail-inner{margin-left:10px;padding-left:14px}
+.email-row{flex-direction:column}
+.email-input,.email-btn{width:100%}
+}
 </style>
 </head>
 <body>
+<div class="page">
 
 <header>
-  <p class="eyebrow">Geopolitical cascade — 2026 to 2030</p>
+  <p class="eyebrow">Geopolitical cascade &mdash; 2026 to 2030</p>
   <h1>The Jiang<br>Simulation</h1>
-  <p class="subtitle">Professor Jiang Xueqin's Law of Eschatological Convergence maps the points where every major religious end-times tradition agrees on what happens next. Ten dominoes. One direction. Click each event to read the full context.</p>
+  <p class="intro">Professor Jiang Xueqin was nobody in 2024. By early 2026 he had two million subscribers, a spot on Tucker Carlson, and a track record that reads less like analysis and more like a briefing document. He called Trump's return. He called the Iran war. Now he's describing something larger &mdash; a convergence of every major religious end-times tradition pointing at the same coordinates. Ten dominoes. One direction. Click each event to read the full context.</p>
+  <p class="byline">Framework by Jiang Xueqin &nbsp;&middot;&nbsp; Presented by <a href="#">Jan Wellmann</a></p>
+
+  <div class="share-row">
+    <a class="share-btn share-x" href="https://twitter.com/intent/tweet?text=The+Jiang+Simulation%3A+ten+dominoes%2C+one+direction.+The+geopolitical+cascade+nobody+wants+to+believe+is+on+schedule.&url=https://thesimulationgame.quest" target="_blank" rel="noopener">
+      <svg class="share-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.737-8.835L1.254 2.25H8.08l4.253 5.622L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77z"/></svg>
+      Share on X
+    </a>
+    <a class="share-btn share-tg" href="https://t.me/share/url?url=https://thesimulationgame.quest&text=The+Jiang+Simulation+%E2%80%94+ten+dominoes%2C+one+direction" target="_blank" rel="noopener">
+      <svg class="share-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg>
+      Share on Telegram
+    </a>
+    <button class="share-btn share-copy" onclick="copyLink(this)">
+      <svg class="share-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      Copy link
+    </button>
+  </div>
+
+  <p class="legend-label">Category</p>
   <div class="legend">
     <span class="tag tag-war">War</span>
     <span class="tag tag-econ">Economy</span>
@@ -257,168 +142,114 @@
   </div>
 </header>
 
+<div class="about-box">
+  <h2>What is the Law of Eschatological Convergence?</h2>
+  <p>Jiang's framework maps the points where every major religious end-times tradition arrives at the same conclusion. Christian Zionism requires the Third Temple and a final war around Jerusalem. Jewish messianism requires Greater Israel and the construction of that temple on the Temple Mount. Russian Orthodox eschatology requires Moscow as the Third Rome and the destruction of the Western liberal order. Shia Islamic eschatology anticipates the rise of Persia and a final confrontation with the forces of falsehood.</p>
+  <p>Jiang's argument is not that God is real or prophecy is magic. It is that the people with sufficient missiles and sufficient certainty believe these things are true &mdash; and in geopolitics, sincere belief backed by a nuclear arsenal has a documented tendency to manufacture its own confirmation.</p>
+  <p>The cascade below maps where those traditions converge, in sequence, across the next two to four years. Whether it is prophecy or policy is, at this point, a distinction without much practical difference.</p>
+</div>
+
 <div class="cascade" id="cascade"></div>
 
+<div class="email-box">
+  <h2>Follow the simulation</h2>
+  <p>New analysis and writing as the cascade develops. No noise, no algorithm, just the signal.</p>
+  <div class="email-row">
+    <input type="email" class="email-input" id="email-input" placeholder="your@email.com">
+    <button class="email-btn" onclick="submitEmail()">Subscribe</button>
+  </div>
+  <p class="email-confirm" id="email-confirm">Done. You'll hear from us when something moves.</p>
+</div>
+
+<hr class="divider">
+
 <footer>
-  <p class="footer-note">
-    Based on the public lectures and interviews of Jiang Xueqin (Predictive History, YouTube), cross-referenced with his appearances on Breaking Points, Tucker Carlson, and the Greater Eurasia Podcast with Glenn Diesen (January–March 2026). This is an analytical framework presented for editorial purposes. Whether Jiang is an independent theorist or a very well-positioned messenger remains, as he would say, an open question.
-  </p>
+  <p class="footer-note">Based on the public lectures and interviews of Jiang Xueqin (Predictive History, YouTube), cross-referenced with his appearances on Breaking Points, Tucker Carlson, and the Greater Eurasia Podcast with Glenn Diesen (January&ndash;March 2026). Whether Jiang is an independent theorist or a well-positioned messenger delivering a script to a Western audience primed to receive it remains, as he would say, an open question. Both options are on the table. Neither is comforting.</p>
+  <div class="footer-links">
+    <a href="https://www.youtube.com/@PredictiveHistory" target="_blank" rel="noopener">Predictive History (YouTube)</a>
+    <a href="https://jiangpredictions.com" target="_blank" rel="noopener">111 predictions tracked</a>
+    <a href="https://thesimulationgame.quest">thesimulationgame.quest</a>
+  </div>
 </footer>
 
+</div>
+
 <script>
-const nodes = [
-  {
-    tag: 'war',
-    label: 'War',
-    title: 'Air war begins',
-    sub: '$4M missile vs $20K drone, indefinitely',
-    detail: 'The US and Israel launch coordinated strikes on Iranian nuclear facilities. Iran retaliates by closing the Strait of Hormuz. The arithmetic is brutal from day one — American interceptors cost two hundred times more than the Iranian drones they destroy. The treasury bleeds while the headlines cheer. This is how empires go broke: not in a single catastrophic moment but in a thousand expensive afternoons. Iran has been preparing for this specific conflict for twenty years. The US has been preparing to feel surprised.'
-  },
-  {
-    tag: 'war',
-    label: 'War',
-    title: 'Ground troops + draft',
-    sub: 'Civil unrest — National Guard vs citizens',
-    detail: 'Air war cannot finish what politics started. Ground troops go in. The draft letter arrives. A generation raised on therapy-speak and the fundamental belief that history was something that happened to other people discovers it was wrong. Mass refusal. National Guard deployed against its own citizens. The streets look like 1968, filmed vertically. The social contract does not snap — it just gets quietly wet and starts to fall apart. Congress cannot function. The empire begins eating its own interior.'
-  },
-  {
-    tag: 'econ',
-    label: 'Economy',
-    title: 'GCC economies collapse',
-    sub: 'Petrodollar architecture cracks',
-    detail: 'Saudi Arabia and the UAE require the Strait of Hormuz to survive — oil out, food in. Iran closes it. The Gulf economies discover that a desert kingdom without functioning logistics is just a very expensive sandbox. The petrodollar — the mechanism by which America runs thirty-nine trillion dollars in debt without consequence, recycling Gulf oil revenues through US financial markets — loses its structural foundation. The Ponzi scheme requires new investors. They stop buying in. Japan and South Korea watch, reassess, and start making other arrangements.'
-  },
-  {
-    tag: 'relig',
-    label: 'Religion',
-    title: 'Al-Aqsa destroyed',
-    sub: '2 billion Muslims mobilize — war goes global',
-    detail: 'The Al-Aqsa Mosque, third holiest site in Islam, standing since the seventh century, comes down. Through whatever combination of military necessity and divine convenience the moment provides. Itamar Ben Gvir, Israel\'s National Security Minister, has visited the Temple Mount over two hundred times to assert Jewish sovereignty. The logic of Third Temple theology requires the mosque\'s removal. Two billion Muslims are now not politically motivated but religiously obligated to respond. The war which was catastrophically regional becomes something the vocabulary of international relations has no word for.'
-  },
-  {
-    tag: 'war',
-    label: 'War',
-    title: 'US loses, CENTCOM transfers',
-    sub: 'Israeli command absorbs US military',
-    detail: 'The American military apparatus in the Middle East — CENTCOM, the whole sprawling command structure — folds operational authority to Israel. The client swallows the contractor. The most powerful military in human history becomes a logistics arm for a country the size of New Jersey with a messianic complex and a nuclear arsenal. Nobody on cable news will use those exact words. They will call it enhanced coordination. The US, unable to sustain the financial hemorrhage and domestic collapse simultaneously, begins its exit from the region it has controlled since 1973.'
-  },
-  {
-    tag: 'geo',
-    label: 'Geopolitics',
-    title: 'Iran wins, Persia rises',
-    sub: 'Ancient identity activated — Gog prophecy',
-    detail: 'A victorious Iran rising from the rubble reassembles its pre-Islamic Persian identity — Cyrus, Darius, the civilizational ego that predates every caliphate. The GCC nations, unable to defend themselves, become client states of Iran. Iran controls the Strait of Hormuz, which means Iran controls the trade access of the entire world. In every major eschatological tradition that predicted a final confrontation with Israel, this resurgent Persian force has a name: Gog. The prophecy does not require the ayatollahs to believe in it. It only requires the people building Greater Israel to believe in it — and they do, emphatically, on the record, in cabinet.'
-  },
-  {
-    tag: 'geo',
-    label: 'Geopolitics',
-    title: 'Russia wins Ukraine, NATO ends',
-    sub: 'Third Rome fulfilled — Magog rises',
-    detail: 'Russia was never really fighting for Ukraine. It was fighting for the destruction of the Western liberal order, the end of NATO as a functional institution, and the fulfillment of the Orthodox Third Rome prophecy — Moscow as the inheritor of Byzantium, spiritual capital of true Christianity after the fall of Constantinople. Patriarch Kirill blessed the tanks. Putin received spiritual counsel throughout the war. As a geopolitical bonus, the Greeks reclaim Constantinople for the first time since 1453. Europe watches through the rubble of its own institutions and tries to remember what it was supposed to stand for.'
-  },
-  {
-    tag: 'econ',
-    label: 'Economy',
-    title: 'Europe: energy and economic crash',
-    sub: 'Western liberal order ends',
-    detail: 'Deprived of cheap Russian gas since 2022, now watching the Strait of Hormuz close the oil lifeline feeding its remaining industrial base, Europe enters managed collapse. Not dramatic — the kind of slow grinding poverty that radicalizes populations who assumed prosperity was a permanent condition. The EU becomes an administrative body governing a territory that no longer believes in it. Germany deindustrializes. France fractures. The lights do not go out all at once. They get dimmer every quarter, every budget cycle, every election that returns a result the Brussels apparatus cannot process.'
-  },
-  {
-    tag: 'relig',
-    label: 'Religion',
-    title: 'Gog and Magog march on Israel',
-    sub: 'All prophecy traditions converge',
-    detail: 'Iran and Russia — Gog and Magog in three separate scriptural traditions — march against Israel. Christian Zionists have been waiting for this. Jewish messianists require it before the Messiah can arrive. Islamic eschatology predicted it. The convergence is not metaphor. It is a geopolitical event being anticipated simultaneously by cabinet ministers in Jerusalem, generals in Tehran, and priests in Moscow. This is the Law of Eschatological Convergence made physical: find the coordinates where every religious endgame tradition agrees, and you have found where the people with sufficient missiles and sufficient certainty are aiming.'
-  },
-  {
-    tag: 'end',
-    label: 'Endgame',
-    title: 'Greater Israel + Pax Judaica + digital ID',
-    sub: 'One world system goes live',
-    detail: 'Greater Israel — the biblical territory from the Nile to the Euphrates. Then Pax Judaica — not a country but a system. AI surveillance, digital identity, programmable money that can be frozen, geo-fenced, or expired based on behavioral compliance. Nvidia, Oracle, Google, Microsoft migrate to wherever power concentrates, because capital follows gravity and has no conscience. The Book of Revelation called this the mark of the beast in the first century AD. The World Economic Forum calls it financial inclusion. The Bank for International Settlements calls it CBDC programmability. Same destination. Three different branding departments. The simulation reaches its final frame.'
-  }
+const nodes=[
+{tag:'war',label:'War',title:'Air war begins',sub:'$4M missile vs $20K drone, indefinitely',detail:'The US and Israel launch coordinated strikes on Iranian nuclear facilities. Iran retaliates by closing the Strait of Hormuz. The arithmetic is brutal from day one — American interceptors cost two hundred times more than the Iranian drones they destroy. The treasury bleeds while the headlines cheer. This is how empires go broke: not in a single catastrophic moment but in a thousand expensive afternoons. Iran has been preparing for this specific conflict for twenty years. The US has been preparing to feel surprised.'},
+{tag:'war',label:'War',title:'Ground troops and the draft',sub:'Civil unrest — National Guard vs citizens',detail:'Air war cannot finish what politics started. Ground troops go in. The draft letter arrives. A generation raised on therapy-speak and the fundamental belief that history happened to other people discovers it was wrong. Mass refusal. National Guard deployed against its own citizens. The streets look like 1968, filmed vertically. The social contract does not snap — it gets quietly wet and starts to fall apart. Congress cannot function. The empire begins eating its own interior.'},
+{tag:'econ',label:'Economy',title:'GCC economies collapse',sub:'Petrodollar architecture cracks',detail:'Saudi Arabia and the UAE require the Strait of Hormuz to survive — oil out, food in. Iran closes it. The Gulf economies discover that a desert kingdom without functioning logistics is just a very expensive sandbox. The petrodollar — the mechanism by which America runs thirty-nine trillion dollars in debt without consequence — loses its structural foundation. The Ponzi scheme requires new investors. They stop buying in. Japan and South Korea watch, reassess, and start making other arrangements.'},
+{tag:'relig',label:'Religion',title:'Al-Aqsa destroyed',sub:'2 billion Muslims mobilize — war goes global',detail:'The Al-Aqsa Mosque, third holiest site in Islam, standing since the seventh century, comes down. Through whatever combination of military necessity and divine convenience the moment provides. The logic of Third Temple theology requires the mosque\'s removal. Two billion Muslims are now not politically motivated but religiously obligated to respond. Every imam on earth has just received a mobilization order with cosmic authority attached. The war which was catastrophically regional becomes something the vocabulary of international relations has no word for.'},
+{tag:'war',label:'War',title:'US loses — CENTCOM transfers',sub:'Israeli command absorbs US military',detail:'The American military apparatus in the Middle East folds operational authority to Israel. The client swallows the contractor. The most powerful military in human history becomes a logistics arm for a country the size of New Jersey with a messianic complex and a nuclear arsenal. Nobody on cable news will use those words. They will call it enhanced coordination. Unable to sustain the financial hemorrhage and domestic collapse simultaneously, the US begins its exit from the region it has controlled since 1973.'},
+{tag:'geo',label:'Geopolitics',title:'Iran wins — Persia rises',sub:'Ancient identity activated — Gog prophecy',detail:'A victorious Iran reassembles its pre-Islamic Persian identity — Cyrus, Darius, the civilizational ego that predates every caliphate. The GCC nations become client states of Iran. Iran controls the Strait of Hormuz, which means Iran controls trade access for the entire world. In every major eschatological tradition that predicted a final confrontation with Israel, this resurgent Persian force has a name: Gog. The prophecy does not require the ayatollahs to believe in it. It only requires the people building Greater Israel to believe in it — and they do, emphatically, in cabinet.'},
+{tag:'geo',label:'Geopolitics',title:'Russia wins Ukraine — NATO ends',sub:'Third Rome fulfilled — Magog rises',detail:'Russia was never really fighting for Ukraine. It was fighting for the end of the Western liberal order, the destruction of NATO as a functional institution, and the fulfillment of the Orthodox Third Rome prophecy — Moscow as the inheritor of Byzantium. Patriarch Kirill blessed the tanks. Putin received spiritual counsel throughout the war. As a geopolitical bonus, the Greeks reclaim Constantinople for the first time since 1453. Europe watches through the rubble of its own institutions and tries to remember what it was supposed to stand for.'},
+{tag:'econ',label:'Economy',title:'Europe — energy and economic crash',sub:'Western liberal order ends',detail:'Deprived of cheap Russian gas since 2022, now watching the Strait of Hormuz close the oil lifeline feeding its remaining industrial base, Europe enters managed collapse. The kind of slow grinding poverty that radicalizes populations who assumed prosperity was permanent. The EU becomes an administrative body governing a territory that no longer believes in it. Germany deindustrializes. The lights do not go out all at once. They get dimmer every quarter, every budget cycle, every election that returns a result Brussels cannot process.'},
+{tag:'relig',label:'Religion',title:'Gog and Magog march on Israel',sub:'All prophecy traditions converge here',detail:'Iran and Russia — Gog and Magog in three separate scriptural traditions — march against Israel. Christian Zionists have been waiting for this. Jewish messianists require it before the Messiah can arrive. Islamic eschatology predicted it. The convergence is not metaphor. It is a geopolitical event being anticipated simultaneously by cabinet ministers in Jerusalem, generals in Tehran, and priests in Moscow. Find the coordinates where every religious endgame tradition agrees, and you have found where the people with sufficient missiles are aiming.'},
+{tag:'end',label:'Endgame',title:'Greater Israel — Pax Judaica — digital ID',sub:'One world system goes live',detail:'Greater Israel — the biblical territory. Then Pax Judaica — not a country but a system. AI surveillance, digital identity, programmable money that can be frozen, geo-fenced, or expired based on behavioral compliance. Nvidia, Oracle, Google, Microsoft migrate to wherever power concentrates, because capital follows gravity and has no conscience. The Book of Revelation called this the mark of the beast in the first century AD. The World Economic Forum calls it financial inclusion. The Bank for International Settlements calls it CBDC programmability. Same destination. Three different branding departments.'}
 ];
 
-const tagActive = {
-  war: 'active-war',
-  econ: 'active-econ',
-  relig: 'active-relig',
-  geo: 'active-geo',
-  end: 'active-end'
-};
+const tagActive={war:'active-war',econ:'active-econ',relig:'active-relig',geo:'active-geo',end:'active-end'};
+let activeIndex=null;
 
-let activeIndex = null;
-
-function build() {
-  const container = document.getElementById('cascade');
-
-  nodes.forEach((n, i) => {
-    const wrap = document.createElement('div');
-    wrap.className = 'node-wrap';
-
-    const node = document.createElement('div');
-    node.className = 'node';
-    node.setAttribute('role', 'button');
-    node.setAttribute('aria-expanded', 'false');
-    node.setAttribute('tabindex', '0');
-    node.innerHTML = `
-      <div class="node-header">
-        <div class="node-left">
-          <span class="tag tag-${n.tag}">${n.label}</span>
-          <div class="node-text">
-            <div class="node-title">${n.title}</div>
-            <div class="node-sub">${n.sub}</div>
-          </div>
-        </div>
-        <span class="chevron">&#9660;</span>
-      </div>
-    `;
-
-    const detail = document.createElement('div');
-    detail.className = 'detail';
-    detail.innerHTML = `
-      <div class="detail-inner">
-        <p>${n.detail}</p>
-      </div>
-    `;
-
-    node.addEventListener('click', () => toggle(i));
-    node.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(i); } });
-
-    wrap.appendChild(node);
-    wrap.appendChild(detail);
-    container.appendChild(wrap);
-
-    if (i < nodes.length - 1) {
-      const conn = document.createElement('div');
-      conn.className = 'connector';
-      container.appendChild(conn);
-    }
-  });
+function build(){
+const c=document.getElementById('cascade');
+nodes.forEach((n,i)=>{
+const wrap=document.createElement('div');
+wrap.className='node-wrap';
+const node=document.createElement('div');
+node.className='node';
+node.setAttribute('role','button');
+node.setAttribute('aria-expanded','false');
+node.setAttribute('tabindex','0');
+node.innerHTML=`<div class="node-header"><div class="node-left"><span class="tag tag-${n.tag}">${n.label}</span><div class="node-text"><div class="node-title">${n.title}</div><div class="node-sub">${n.sub}</div></div></div><span class="chevron">&#9660;</span></div>`;
+const detail=document.createElement('div');
+detail.className='detail';
+detail.innerHTML=`<div class="detail-inner"><p>${n.detail}</p></div>`;
+node.addEventListener('click',()=>toggle(i));
+node.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();toggle(i)}});
+wrap.appendChild(node);
+wrap.appendChild(detail);
+c.appendChild(wrap);
+if(i<nodes.length-1){const conn=document.createElement('div');conn.className='connector';c.appendChild(conn);}
+});
 }
 
-function toggle(i) {
-  const allNodes = document.querySelectorAll('.node');
-  const allDetails = document.querySelectorAll('.detail');
+function toggle(i){
+const allNodes=document.querySelectorAll('.node');
+const allDetails=document.querySelectorAll('.detail');
+if(activeIndex===i){
+allNodes[i].classList.remove('active',tagActive[nodes[i].tag]);
+allNodes[i].setAttribute('aria-expanded','false');
+allDetails[i].classList.remove('open');
+activeIndex=null;return;
+}
+if(activeIndex!==null){
+allNodes[activeIndex].classList.remove('active',tagActive[nodes[activeIndex].tag]);
+allNodes[activeIndex].setAttribute('aria-expanded','false');
+allDetails[activeIndex].classList.remove('open');
+}
+allNodes[i].classList.add('active',tagActive[nodes[i].tag]);
+allNodes[i].setAttribute('aria-expanded','true');
+allDetails[i].classList.add('open');
+activeIndex=i;
+setTimeout(()=>{allNodes[i].scrollIntoView({behavior:'smooth',block:'nearest'});},50);
+}
 
-  if (activeIndex === i) {
-    allNodes[i].classList.remove('active', tagActive[nodes[i].tag]);
-    allNodes[i].setAttribute('aria-expanded', 'false');
-    allDetails[i].classList.remove('open');
-    activeIndex = null;
-    return;
-  }
+function copyLink(btn){
+navigator.clipboard.writeText('https://thesimulationgame.quest').then(()=>{
+const orig=btn.innerHTML;
+btn.innerHTML='<svg class="share-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Copied';
+setTimeout(()=>{btn.innerHTML=orig;},2000);
+});
+}
 
-  if (activeIndex !== null) {
-    allNodes[activeIndex].classList.remove('active', tagActive[nodes[activeIndex].tag]);
-    allNodes[activeIndex].setAttribute('aria-expanded', 'false');
-    allDetails[activeIndex].classList.remove('open');
-  }
-
-  allNodes[i].classList.add('active', tagActive[nodes[i].tag]);
-  allNodes[i].setAttribute('aria-expanded', 'true');
-  allDetails[i].classList.add('open');
-  activeIndex = i;
+function submitEmail(){
+const input=document.getElementById('email-input');
+const confirm=document.getElementById('email-confirm');
+if(!input.value||!input.value.includes('@'))return;
+input.style.display='none';
+document.querySelector('.email-btn').style.display='none';
+confirm.style.display='block';
 }
 
 build();
