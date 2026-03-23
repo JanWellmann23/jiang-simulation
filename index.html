@@ -348,9 +348,10 @@ async function fetchVotes() {
     }
     const counts = {};
     data.forEach(row => {
-      if (!counts[row.node_index]) counts[row.node_index] = {yes:0,no:0,happening:0,total:0};
-      counts[row.node_index][row.vote]++;
-      counts[row.node_index].total++;
+      const idx = parseInt(row.node_index);
+      if (!counts[idx]) counts[idx] = {yes:0,no:0,happening:0,total:0};
+      counts[idx][row.vote]++;
+      counts[idx].total++;
     });
     return counts;
   } catch(e) {
@@ -569,7 +570,7 @@ function renderLivePanel(counts) {
   }
   let rows = '';
   nodeShortTitles.forEach((title, i) => {
-    const c = counts[i] || {yes:0,no:0,happening:0,total:0};
+    const c = counts[i] || counts[String(i)] || {yes:0,no:0,happening:0,total:0};
     const t = c.total || 0;
     if (t === 0) {
       rows += `<div class="live-panel-row"><span class="live-panel-node">${title}</span><span class="live-panel-total">no votes</span></div>`;
