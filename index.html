@@ -421,6 +421,39 @@ function renderVotes(nodeIndex, counts, userVote) {
   </div>`;
 }
 
+function renderLivePanel(counts) {
+  const body = document.getElementById('live-panel-body');
+  if (!body) return;
+  const totalVotes = Object.values(counts).reduce((s,c) => s + (c.total||0), 0);
+  if (totalVotes === 0) {
+    body.innerHTML = '<p class="live-panel-empty">No votes yet — be the first.</p>';
+    return;
+  }
+  let rows = '';
+  nodeShortTitles.forEach((title, i) => {
+    const c = counts[i] || counts[String(i)] || {yes:0,no:0,happening:0,total:0};
+    const t = c.total || 0;
+    if (t === 0) {
+      rows += `<div class="live-panel-row"><span class="live-panel-node">${title}</span><span class="live-panel-total">no votes</span></div>`;
+      return;
+    }
+    const hw = Math.max(3, Math.round((c.happening/t)*60));
+    const yw = Math.max(3, Math.round((c.yes/t)*60));
+    const nw = Math.max(3, Math.round((c.no/t)*60));
+    rows += `<div class="live-panel-row">
+      <span class="live-panel-node">${title}</span>
+      <div class="live-panel-bars">
+        <div class="live-mini-bar live-mini-h" style="width:${hw}px" title="Already happening: ${pct(c.happening,t)}%"></div>
+        <div class="live-mini-bar live-mini-y" style="width:${yw}px" title="Yes: ${pct(c.yes,t)}%"></div>
+        <div class="live-mini-bar live-mini-n" style="width:${nw}px" title="No: ${pct(c.no,t)}%"></div>
+        <span class="live-panel-total">${t}</span>
+      </div>
+    </div>`;
+  });
+  body.innerHTML = rows;
+}
+
+
 async function submitVote(nodeIndex, vote) {
   const stored = JSON.parse(localStorage.getItem('jiang_votes') || '{}');
   if (stored[nodeIndex]) return;
@@ -432,7 +465,7 @@ async function submitVote(nodeIndex, vote) {
   userVotes = stored;
   const panel = document.getElementById(`vote-panel-${nodeIndex}`);
   if (panel) panel.outerHTML = renderVotes(nodeIndex, counts, vote);
-  renderLivePanel(counts);
+  setTimeout(() => renderLivePanel(counts), 0);
 }
 
 let globalCounts = {};
@@ -560,37 +593,6 @@ const nodeShortTitles = [
   'Digital ID — mark of beast'
 ];
 
-function renderLivePanel(counts) {
-  const body = document.getElementById('live-panel-body');
-  if (!body) return;
-  const totalVotes = Object.values(counts).reduce((s,c) => s + (c.total||0), 0);
-  if (totalVotes === 0) {
-    body.innerHTML = '<p class="live-panel-empty">No votes yet — be the first.</p>';
-    return;
-  }
-  let rows = '';
-  nodeShortTitles.forEach((title, i) => {
-    const c = counts[i] || counts[String(i)] || {yes:0,no:0,happening:0,total:0};
-    const t = c.total || 0;
-    if (t === 0) {
-      rows += `<div class="live-panel-row"><span class="live-panel-node">${title}</span><span class="live-panel-total">no votes</span></div>`;
-      return;
-    }
-    const hw = Math.max(3, Math.round((c.happening/t)*60));
-    const yw = Math.max(3, Math.round((c.yes/t)*60));
-    const nw = Math.max(3, Math.round((c.no/t)*60));
-    rows += `<div class="live-panel-row">
-      <span class="live-panel-node">${title}</span>
-      <div class="live-panel-bars">
-        <div class="live-mini-bar live-mini-h" style="width:${hw}px" title="Already happening: ${pct(c.happening,t)}%"></div>
-        <div class="live-mini-bar live-mini-y" style="width:${yw}px" title="Yes: ${pct(c.yes,t)}%"></div>
-        <div class="live-mini-bar live-mini-n" style="width:${nw}px" title="No: ${pct(c.no,t)}%"></div>
-        <span class="live-panel-total">${t}</span>
-      </div>
-    </div>`;
-  });
-  body.innerHTML = rows;
-}
 
 function closeLivePanel() {
   document.getElementById('live-panel').classList.add('hidden');
