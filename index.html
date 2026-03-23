@@ -107,6 +107,7 @@ h1{font-size:2rem}
 .email-input,.email-btn{width:100%}
 }
 
+.vote-cta{font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:10px}
 .vote-panel{margin-top:14px;padding-top:12px;border-top:0.5px solid var(--border)}
 .vote-label{font-size:11px;font-weight:500;color:var(--text3);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:10px}
 .vote-btns{display:flex;flex-wrap:wrap;gap:7px}
@@ -255,7 +256,8 @@ function renderVotes(nodeIndex, counts, userVote) {
   const voteLabels = {yes:'Yes — this happens',no:'No — it won\'t',happening:'Already happening'};
 
   return `<div class="vote-panel" id="vote-panel-${nodeIndex}">
-    <div class="vote-label">${voted ? 'Public consensus — ' + total.toLocaleString() + ' votes' : 'Will this happen?'}</div>
+    <div class="vote-label">${voted ? 'Public consensus — ' + total.toLocaleString() + ' votes' : 'Cast your vote'}</div>
+    ${!voted ? `<p class="vote-cta">Is this domino already falling — or just a theory? You've read the argument. Now call it.</p>` : ''}
     ${voted ? `
     <div class="vote-bars">
       <div class="vote-bar-row ${userVote==='happening'?'vote-highlight':''}">
