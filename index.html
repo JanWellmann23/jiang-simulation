@@ -135,6 +135,42 @@ h1{font-size:2rem}
 @media(max-width:480px){
 .vote-bar-label{width:100px;font-size:11px}
 }
+
+.vote-cta-banner{background:var(--bg2);border:0.5px solid var(--border);border-radius:var(--radius);padding:1.25rem 1.5rem;margin:0 0 2rem}
+.vote-cta-banner h2{font-size:15px;font-weight:500;color:var(--text);margin-bottom:0.5rem}
+.vote-cta-banner p{font-size:13px;color:var(--text2);line-height:1.65;margin-bottom:0.75rem}
+.vote-cta-banner .vote-cta-action{font-size:12px;color:var(--text3);font-style:italic}
+
+.live-panel{position:fixed;bottom:1.25rem;right:1.25rem;width:260px;background:var(--bg);border:0.5px solid var(--border2);border-radius:var(--radius);box-shadow:0 2px 12px rgba(0,0,0,0.08);z-index:100;overflow:hidden;transition:transform 0.3s ease}
+.live-panel.hidden{transform:translateY(calc(100% + 2rem))}
+.live-panel-header{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:0.5px solid var(--border);cursor:pointer}
+.live-panel-title{font-size:12px;font-weight:500;color:var(--text)}
+.live-pulse{width:7px;height:7px;border-radius:50%;background:#1D9E75;display:inline-block;margin-right:6px;animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+.live-panel-close{font-size:16px;color:var(--text3);background:none;border:none;cursor:pointer;padding:0;line-height:1;font-family:var(--font)}
+.live-panel-body{padding:10px 14px 12px}
+.live-panel-row{display:flex;align-items:center;justify-content:space-between;padding:6px 0;border-bottom:0.5px solid var(--border)}
+.live-panel-row:last-child{border-bottom:none}
+.live-panel-node{font-size:11px;color:var(--text2);flex:1;min-width:0;padding-right:8px;line-height:1.3}
+.live-panel-bars{display:flex;gap:2px;align-items:center}
+.live-mini-bar{height:14px;min-width:3px;border-radius:2px;transition:width 0.6s ease}
+.live-mini-h{background:#7F77DD}
+.live-mini-y{background:#1D9E75}
+.live-mini-n{background:#D85A30}
+.live-panel-total{font-size:10px;color:var(--text3);margin-left:6px;white-space:nowrap}
+.live-panel-empty{font-size:12px;color:var(--text3);text-align:center;padding:8px 0;font-style:italic}
+.live-toggle{position:fixed;bottom:1.25rem;right:1.25rem;background:var(--accent);color:var(--bg);border:none;border-radius:var(--radius-pill);padding:9px 16px;font-size:12px;font-weight:500;cursor:pointer;font-family:var(--font);z-index:100;display:none;transition:opacity 0.15s;box-shadow:0 2px 8px rgba(0,0,0,0.15)}
+.live-toggle:hover{opacity:0.85}
+@media(max-width:600px){
+.live-panel{width:calc(100vw - 2.5rem);right:1.25rem}
+}
+@media(prefers-color-scheme:dark){
+.live-panel{box-shadow:0 2px 12px rgba(0,0,0,0.4)}
+}
+.intro-cta-box{background:var(--bg2);border:0.5px solid var(--border);border-left:3px solid var(--border2);border-radius:var(--radius);padding:1.1rem 1.4rem;margin:1.25rem 0 1.75rem}
+.intro-cta-headline{font-size:15px;font-weight:500;color:var(--text);margin-bottom:0.5rem}
+.intro-cta-sub{font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:0.6rem}
+.intro-cta-arrow{font-size:12px;color:var(--text3);font-style:italic}
 </style>
 </head>
 <body>
@@ -179,12 +215,19 @@ h1{font-size:2rem}
   <p>The cascade below maps where those traditions converge, in sequence, across the next two to four years. Whether it is prophecy or policy is, at this point, a distinction without much practical difference.</p>
 </div>
 
+
+<div class="vote-cta-banner">
+  <h2>You've read the argument. Now call it.</h2>
+  <p>Ten dominoes. Some are already in motion. Others are still theoretical. A few might never fall. Expand each event below and cast your vote — the live results track where the public consensus is landing in real time. Whether you think this is prophecy, policy, or the most elaborate coincidence in recorded history, your read matters. The map is only as accurate as the people willing to mark it.</p>
+  <p class="vote-cta-action">Expand any event below &darr; to vote and see live results</p>
+</div>
 <div class="cascade" id="cascade"></div>
 
 <div class="email-box">
   <h2>The simulation is live. Are you watching?</h2>
-  <p>Domino two is already in motion. As each event in this cascade confirms, breaks, or accelerates — you'll get the analysis first. No noise. No algorithm deciding what you see. Just the signal, direct.</p>
-  <p style="font-size:13px;color:var(--text2);margin-bottom:1rem;line-height:1.6;">Subscribe to follow the simulation in real time &mdash; new pieces as the cascade develops, updates when predictions confirm, and deeper dives into the framework as the map keeps matching the territory.</p>
+  <p>Whether this is divine choreography or the most elaborately calculated power play in human history, one thing is not in dispute — we are living through the most consequential stretch of time any of us will ever witness. The dominoes are not hypothetical. They are falling in sequence, on schedule, in broad daylight.</p>
+  <p style="font-size:13px;color:var(--text2);margin-bottom:0.75rem;line-height:1.6;">This Substack follows the cascade in real time. When a prediction confirms, you'll hear about it. When the map diverges from the territory, that gets examined too — because the most interesting question is not whether Jiang is right, but what it means if he is. Beyond the simulation, the writing covers the full terrain of this historical moment: geopolitics, health, political power, the systems being built on top of the wreckage, and the humans navigating all of it without a instruction manual.</p>
+  <p style="font-size:13px;color:var(--text2);margin-bottom:1rem;line-height:1.6;">No algorithm decides what you see. No advertiser shapes what gets said. Just pattern recognition, unglamorous specificity, and the occasional dark laugh at the sheer audacity of the simulation we appear to be inside.</p>
   <form action="https://janwellmann.substack.com/api/v1/free?nojs=true" method="post" target="_blank" id="substack-form" onsubmit="handleSubscribe(event)">
     <div class="email-row">
       <input type="email" name="email" class="email-input" id="email-input" placeholder="your@email.com" required>
@@ -205,6 +248,18 @@ h1{font-size:2rem}
     <a href="https://thesimulationgame.quest">thesimulationgame.quest</a>
   </div>
 </footer>
+
+
+<div class="live-panel" id="live-panel">
+  <div class="live-panel-header" onclick="toggleLivePanel()">
+    <span><span class="live-pulse"></span><span class="live-panel-title">Live prediction results</span></span>
+    <button class="live-panel-close" onclick="event.stopPropagation();closeLivePanel()" aria-label="Close">&times;</button>
+  </div>
+  <div class="live-panel-body" id="live-panel-body">
+    <p class="live-panel-empty">Votes loading&hellip;</p>
+  </div>
+</div>
+<button class="live-toggle" id="live-toggle" onclick="openLivePanel()">Show live results</button>
 
 </div>
 
@@ -379,6 +434,80 @@ fetchVotes().then(counts => {
   globalCounts = counts;
   userVotes = JSON.parse(localStorage.getItem('jiang_votes') || '{}');
   build();
+renderLivePanel(globalCounts);
+
+const nodeShortTitles = [
+  'Air war begins',
+  'Ground troops + draft',
+  'GCC collapses',
+  'Al-Aqsa destroyed',
+  'US loses — CENTCOM',
+  'Iran wins — Persia',
+  'Russia wins — NATO ends',
+  'Europe crashes',
+  'Gog + Magog march',
+  'Pax Judaica — digital ID'
+];
+
+function renderLivePanel(counts) {
+  const body = document.getElementById('live-panel-body');
+  if (!body) return;
+  const totalVotes = Object.values(counts).reduce((s,c) => s + (c.total||0), 0);
+  if (totalVotes === 0) {
+    body.innerHTML = '<p class="live-panel-empty">No votes yet — be the first.</p>';
+    return;
+  }
+  let rows = '';
+  nodeShortTitles.forEach((title, i) => {
+    const c = counts[i] || {yes:0,no:0,happening:0,total:0};
+    const t = c.total || 0;
+    if (t === 0) {
+      rows += `<div class="live-panel-row"><span class="live-panel-node">${title}</span><span class="live-panel-total">no votes</span></div>`;
+      return;
+    }
+    const hw = Math.max(3, Math.round((c.happening/t)*60));
+    const yw = Math.max(3, Math.round((c.yes/t)*60));
+    const nw = Math.max(3, Math.round((c.no/t)*60));
+    rows += `<div class="live-panel-row">
+      <span class="live-panel-node">${title}</span>
+      <div class="live-panel-bars">
+        <div class="live-mini-bar live-mini-h" style="width:${hw}px" title="Already happening: ${pct(c.happening,t)}%"></div>
+        <div class="live-mini-bar live-mini-y" style="width:${yw}px" title="Yes: ${pct(c.yes,t)}%"></div>
+        <div class="live-mini-bar live-mini-n" style="width:${nw}px" title="No: ${pct(c.no,t)}%"></div>
+        <span class="live-panel-total">${t}</span>
+      </div>
+    </div>`;
+  });
+  body.innerHTML = rows;
+}
+
+function closeLivePanel() {
+  document.getElementById('live-panel').classList.add('hidden');
+  document.getElementById('live-toggle').style.display = 'block';
+}
+
+function openLivePanel() {
+  document.getElementById('live-panel').classList.remove('hidden');
+  document.getElementById('live-toggle').style.display = 'none';
+}
+
+function toggleLivePanel() {
+  const panel = document.getElementById('live-panel');
+  if (panel.classList.contains('hidden')) {
+    openLivePanel();
+  } else {
+    closeLivePanel();
+  }
+}
+
+async function refreshLivePanel() {
+  const counts = await fetchVotes();
+  globalCounts = counts;
+  renderLivePanel(counts);
+}
+
+setInterval(refreshLivePanel, 15000);
+
 });
 </script>
 </body>
