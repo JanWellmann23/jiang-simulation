@@ -427,8 +427,11 @@ async function submitVote(nodeIndex, vote) {
   localStorage.setItem('jiang_votes', JSON.stringify(stored));
   await castVote(nodeIndex, vote);
   const counts = await fetchVotes();
+  globalCounts = counts;
+  userVotes = stored;
   const panel = document.getElementById(`vote-panel-${nodeIndex}`);
   if (panel) panel.outerHTML = renderVotes(nodeIndex, counts, vote);
+  renderLivePanel(counts);
 }
 
 let globalCounts = {};
