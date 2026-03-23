@@ -592,16 +592,22 @@ function toggle(i) {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
+  // Always build immediately with empty counts
+  globalCounts = {};
+  userVotes = JSON.parse(localStorage.getItem('jiang_votes') || '{}');
+  build();
+  // Then fetch votes and update
   fetchVotes().then(counts => {
     globalCounts = counts;
-    userVotes = JSON.parse(localStorage.getItem('jiang_votes') || '{}');
-    build();
     renderLivePanel(counts);
+    // Update all vote panels with fresh data
+    document.querySelectorAll('.vote-panel').forEach((panel, i) => {
+      const uv = userVotes[i] || null;
+      panel.outerHTML = renderVotes(i, counts, uv);
+    });
   }).catch(err => {
-    console.error('Init error:', err);
-    globalCounts = {};
-    userVotes = JSON.parse(localStorage.getItem('jiang_votes') || '{}');
-    build();
+    console.error('Votes fetch failed:', err);
+    renderLivePanel({});
   });
 });
 </script>
