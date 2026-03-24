@@ -221,7 +221,76 @@ button,a,.node,.share-btn,.vote-btn,.email-btn{-webkit-tap-highlight-color:trans
 @media(prefers-color-scheme:dark){
 .status-confirmed{background:#051a0d;color:#1D9E75}
 .status-progress{background:#1a1005;color:#EF9F27}
-}</style>
+}.tally-section{margin-top:12px;padding-top:12px;border-top:0.5px solid var(--border)}
+.tally-label{font-size:10px;font-weight:500;color:var(--text3);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:8px}
+.tally-row{display:flex;align-items:center;gap:8px;padding:4px 0}
+.tally-cat{font-size:11px;color:var(--text2);width:80px;flex-shrink:0}
+.tally-bars{display:flex;gap:2px;align-items:center;flex:1}
+.tally-total{font-size:10px;color:var(--text3);white-space:nowrap}
+.tally-grand{font-size:11px;color:var(--text2);margin-top:10px;padding-top:8px;border-top:0.5px solid var(--border)}
+.tally-grand strong{color:var(--text);font-weight:500}
+
+.command-center{border:0.5px solid var(--border);border-radius:var(--radius);overflow:hidden;margin:0 0 1.5rem}
+.cc-header{padding:10px 16px;border-bottom:0.5px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.cc-title{font-size:11px;font-weight:500;color:var(--text3);text-transform:uppercase;letter-spacing:0.06em;display:flex;align-items:center;gap:6px}
+.cc-total{font-size:12px;color:var(--text2)}
+.cc-total strong{color:var(--text);font-weight:500}
+.stat-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;padding:12px}
+.stat-card{background:var(--bg2);border-radius:var(--radius-sm);padding:10px 12px}
+.stat-label{font-size:10px;color:var(--text3);margin-bottom:4px}
+.stat-value{font-size:20px;font-weight:500;color:var(--text);line-height:1}
+.stat-sub{font-size:10px;color:var(--text3);margin-top:3px}
+.conviction-section{padding:0 14px 14px}
+.conv-label{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:0.05em;margin-bottom:8px;font-weight:500}
+.conv-row{display:flex;align-items:center;gap:8px;margin-bottom:5px}
+.conv-name{font-size:11px;color:var(--text2);width:160px;flex-shrink:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.conv-bar-track{flex:1;height:5px;background:var(--bg3);border-radius:3px;overflow:hidden}
+.conv-bar-fill{height:100%;border-radius:3px;transition:width 0.4s ease}
+.fill-h{background:#7F77DD}
+.fill-y{background:#1D9E75}
+.fill-n{background:#D85A30}
+.conv-pct{font-size:10px;color:var(--text3);width:30px;text-align:right;flex-shrink:0}
+.conv-badge{font-size:9px;padding:1px 5px;border-radius:8px;font-weight:500;margin-left:3px}
+.badge-fire{background:#FAECE7;color:#712B13}
+.badge-cold{background:#E6F1FB;color:#0C447C}
+.node-row{background:var(--bg);border:0.5px solid var(--border);border-radius:var(--radius);margin-bottom:6px;overflow:hidden;cursor:pointer;transition:border-color 0.15s;-webkit-tap-highlight-color:transparent}
+.node-row:hover{border-color:var(--border2);background:var(--bg2)}
+.node-row.open{border-color:var(--border2)}
+.node-main{display:flex;align-items:center;gap:8px;padding:10px 12px}
+.node-info{display:flex;align-items:center;gap:8px;flex:1;min-width:0}
+.node-text{flex:1;min-width:0}
+.node-title-row{font-size:13px;font-weight:500;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:flex;align-items:center;gap:6px}
+.node-sub-row{font-size:11px;color:var(--text3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-top:1px}
+.node-bar-col{width:52px;flex-shrink:0}
+.bar-mini-track{height:4px;background:var(--bg3);border-radius:2px;overflow:hidden;display:flex}
+.bar-mini-seg{height:100%;transition:width 0.4s ease}
+.vote-mini-count{font-size:10px;color:var(--text3);margin-top:2px;text-align:right}
+.node-chevron{font-size:10px;color:var(--text3);flex-shrink:0;transition:transform 0.2s}
+.node-row.open .node-chevron{transform:rotate(180deg)}
+.node-detail{display:none;padding:12px 14px;border-top:0.5px solid var(--border);background:var(--bg2)}
+.node-row.open .node-detail{display:block}
+.node-detail-text{font-size:13px;color:var(--text2);line-height:1.68;margin-bottom:12px}
+.vote-btn-row{display:flex;gap:6px;flex-wrap:wrap}
+.vote-mini{font-size:11px;font-weight:500;padding:5px 11px;border-radius:var(--radius-pill);border:0.5px solid transparent;cursor:pointer;transition:opacity 0.15s;font-family:var(--font)}
+.vote-mini:hover{opacity:0.8}
+.vote-mini.voted{opacity:0.5;cursor:default;pointer-events:none}
+.vmh{background:#EEEDFE;color:#3C3489;border-color:#AFA9EC}
+.vmy{background:#E1F5EE;color:#085041;border-color:#5DCAA5}
+.vmn{background:#FAECE7;color:#712B13;border-color:#F0997B}
+.voted-label{font-size:11px;color:var(--text3);font-style:italic;padding-top:2px}
+@media(prefers-color-scheme:dark){
+.vmh{background:#3C3489;color:#CECBF6;border-color:#534AB7}
+.vmy{background:#085041;color:#9FE1CB;border-color:#0F6E56}
+.vmn{background:#712B13;color:#F5C4B3;border-color:#993C1D}
+.badge-fire{background:#712B13;color:#F5C4B3}
+.badge-cold{background:#0C447C;color:#B5D4F4}
+}
+@media(max-width:480px){
+.stat-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+.conv-name{width:120px}
+.node-bar-col{display:none}
+}
+</style>
 </head>
 <body>
 <div class="page">
@@ -261,28 +330,43 @@ button,a,.node,.share-btn,.vote-btn,.email-btn{-webkit-tap-highlight-color:trans
   </div>
 </header>
 
-  <div class="live-panel" id="live-panel">
-    <div class="live-panel-header">
-      <span><span class="live-pulse"></span><span class="live-panel-title">Live prediction results &mdash; where the public stands</span></span>
+  <div class="command-center" id="command-center">
+    <div class="cc-header">
+      <div class="cc-title"><span class="live-pulse"></span>Live prediction results</div>
+      <div class="cc-total">Total votes: <strong id="cc-total-num">0</strong></div>
     </div>
-    <div class="live-panel-body" id="live-panel-body">
-      <p class="live-panel-empty">Cast your first vote below to see results here.</p>
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="stat-label">Already happening</div>
+        <div class="stat-value" id="cc-pct-h" style="color:#7F77DD">—</div>
+        <div class="stat-sub">avg across all</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Yes — coming</div>
+        <div class="stat-value" id="cc-pct-y" style="color:#1D9E75">—</div>
+        <div class="stat-sub">avg across all</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Won't happen</div>
+        <div class="stat-value" id="cc-pct-n" style="color:#D85A30">—</div>
+        <div class="stat-sub">avg across all</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Highest conviction</div>
+        <div class="stat-value" id="cc-top-name" style="font-size:12px;line-height:1.3">—</div>
+        <div class="stat-sub" id="cc-top-pct"></div>
+      </div>
     </div>
-    <div class="live-legend">
-      <span class="live-legend-item"><span class="live-legend-dot" style="background:#7F77DD"></span>Already happening</span>
-      <span class="live-legend-item"><span class="live-legend-dot" style="background:#1D9E75"></span>Yes &mdash; coming</span>
-      <span class="live-legend-item"><span class="live-legend-dot" style="background:#D85A30"></span>No</span>
+    <div class="conviction-section" id="conviction-section">
+      <div class="conv-label">By conviction — highest to lowest</div>
+      <div id="conviction-rows"></div>
     </div>
   </div>
 
 
 
 
-<div class="vote-cta-banner">
-  <h2>You've read the argument. Now call it.</h2>
-  <p>Expand each event, read the case, and vote. Prophet or BS — your call counts.</p>
-  <p class="vote-cta-action">Expand any event below &darr; to vote</p>
-</div>
+
 <div class="cascade" id="cascade"></div>
 
 <div class="email-box">
@@ -329,189 +413,145 @@ button,a,.node,.share-btn,.vote-btn,.email-btn{-webkit-tap-highlight-color:trans
 const SUPABASE_URL = 'https://ptwteghmojetltiajlpg.supabase.co';
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB0d3RlZ2htb2pldGx0aWFqbHBnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQyNjM1MzYsImV4cCI6MjA4OTgzOTUzNn0.D7mRCrIvZwwzwn6orMBuL261mWbc9H0sZLulIcuh2sc';
 
-const nodeShortTitles = [
-  'US-Israel strike Iran',
-  'Trump returns to power',
-  'Strait of Hormuz closed',
-  'US financial hemorrhage',
-  'GCC economies destabilized',
-  'Ground troop pressure',
-  'European energy crisis',
-  'US military draft',
-  'Al-Aqsa destroyed',
-  'Turkey + Saudi enter war',
-  'US loses — CENTCOM',
-  'US stock market crash',
-  'Iran wins — Persia rises',
-  'Russia takes Ukraine',
-  'Japan + South Korea flip',
-  'Gog + Magog march',
-  'Greater Israel expansion',
-  'China fails — yuan stalls',
-  'Petrodollar collapses',
-  'Pax Judaica — AI state',
-  'Digital ID — mark of beast'
+const nodeShortTitles=[
+  'US-Israel strike Iran','Trump returns to power','Strait of Hormuz closed',
+  'US financial hemorrhage','GCC economies destabilized','Ground troop pressure',
+  'European energy crisis','US military draft','Al-Aqsa destroyed',
+  'Turkey + Saudi enter war','US loses — CENTCOM','US stock market crash',
+  'Iran wins — Persia rises','Russia takes Ukraine','Japan + South Korea flip',
+  'Gog + Magog march','Greater Israel expansion','China fails — yuan stalls',
+  'Petrodollar collapses','Pax Judaica — AI state','Digital ID — mark of beast'
 ];
 
-async function fetchVotes() {
-  try {
-    const res = await fetch(`${SUPABASE_URL}/rest/v1/votes?select=node_index,vote`, {
-      headers: {
-        'apikey': SUPABASE_KEY,
-        'Authorization': `Bearer ${SUPABASE_KEY}`
-      }
+async function fetchVotes(){
+  try{
+    const res=await fetch(`${SUPABASE_URL}/rest/v1/votes?select=node_index,vote`,{
+      headers:{'apikey':SUPABASE_KEY,'Authorization':`Bearer ${SUPABASE_KEY}`}
     });
-    if (!res.ok) { console.error('Fetch failed:', res.status); return {}; }
-    const data = await res.json();
-    if (!Array.isArray(data)) { console.error('Bad data:', data); return {}; }
-    const counts = {};
-    data.forEach(row => {
-      const idx = parseInt(row.node_index);
-      if (!counts[idx]) counts[idx] = {yes:0,no:0,happening:0,total:0};
+    if(!res.ok){console.error('Fetch failed:',res.status);return{};}
+    const data=await res.json();
+    if(!Array.isArray(data)){console.error('Bad data:',data);return{};}
+    const counts={};
+    data.forEach(row=>{
+      const idx=parseInt(row.node_index);
+      if(!counts[idx])counts[idx]={yes:0,no:0,happening:0,total:0};
       counts[idx][row.vote]++;
       counts[idx].total++;
     });
     return counts;
-  } catch(e) { console.error('fetchVotes error:', e); return {}; }
+  }catch(e){console.error('fetchVotes error:',e);return{};}
 }
 
-async function castVote(nodeIndex, vote) {
-  try {
-    const res = await fetch(`${SUPABASE_URL}/rest/v1/votes`, {
-      method: 'POST',
-      headers: {
-        'apikey': SUPABASE_KEY,
-        'Authorization': `Bearer ${SUPABASE_KEY}`,
-        'Content-Type': 'application/json',
-        'Prefer': 'return=minimal'
-      },
-      body: JSON.stringify({ node_index: nodeIndex, vote: vote })
+async function castVote(nodeIndex,vote){
+  try{
+    const res=await fetch(`${SUPABASE_URL}/rest/v1/votes`,{
+      method:'POST',
+      headers:{'apikey':SUPABASE_KEY,'Authorization':`Bearer ${SUPABASE_KEY}`,'Content-Type':'application/json','Prefer':'return=minimal'},
+      body:JSON.stringify({node_index:nodeIndex,vote:vote})
     });
-    if (!res.ok) console.error('Vote failed:', res.status, await res.text());
-  } catch(e) { console.error('castVote error:', e); }
+    if(!res.ok)console.error('Vote failed:',res.status,await res.text());
+  }catch(e){console.error('castVote error:',e);}
 }
 
-function pct(n, total) { return total === 0 ? 0 : Math.round((n / total) * 100); }
+function pct(n,total){return total===0?0:Math.round((n/total)*100);}
 
-function renderLivePanel(counts) {
-  const body = document.getElementById('live-panel-body');
-  if (!body) return;
-  const totalVotes = Object.values(counts).reduce((s,c) => s + (c.total||0), 0);
-  if (totalVotes === 0) {
-    body.innerHTML = '<p class="live-panel-empty">Cast your first vote below to see results here.</p>';
+function updateCommandCenter(counts){
+  const totalVotes=Object.values(counts).reduce((s,c)=>s+(c.total||0),0);
+  document.getElementById('cc-total-num').textContent=totalVotes.toLocaleString();
+  if(totalVotes===0){
+    document.getElementById('conviction-section').style.display='none';
     return;
   }
-  let rows = '';
-  nodeShortTitles.forEach((title, i) => {
-    const c = counts[i] || {yes:0,no:0,happening:0,total:0};
-    const t = c.total || 0;
-    if (t === 0) {
-      rows += `<div class="live-panel-row"><span class="live-panel-node">${title}</span><span class="live-panel-total">no votes</span></div>`;
-      return;
-    }
-    const hw = Math.max(3, Math.round((c.happening/t)*60));
-    const yw = Math.max(3, Math.round((c.yes/t)*60));
-    const nw = Math.max(3, Math.round((c.no/t)*60));
-    rows += `<div class="live-panel-row">
-      <span class="live-panel-node">${title}</span>
-      <div class="live-panel-bars">
-        <div class="live-mini-bar live-mini-h" style="width:${hw}px" title="Already happening: ${pct(c.happening,t)}%"></div>
-        <div class="live-mini-bar live-mini-y" style="width:${yw}px" title="Yes: ${pct(c.yes,t)}%"></div>
-        <div class="live-mini-bar live-mini-n" style="width:${nw}px" title="No: ${pct(c.no,t)}%"></div>
-        <span class="live-panel-total">${t}</span>
-      </div>
+  document.getElementById('conviction-section').style.display='block';
+  let totalH=0,totalY=0,totalN=0;
+  Object.values(counts).forEach(c=>{totalH+=c.happening||0;totalY+=c.yes||0;totalN+=c.no||0;});
+  const grand=totalH+totalY+totalN;
+  document.getElementById('cc-pct-h').textContent=grand>0?pct(totalH,grand)+'%':'—';
+  document.getElementById('cc-pct-y').textContent=grand>0?pct(totalY,grand)+'%':'—';
+  document.getElementById('cc-pct-n').textContent=grand>0?pct(totalN,grand)+'%':'—';
+
+  // Conviction ranking
+  const ranked=nodeShortTitles.map((title,i)=>{
+    const c=counts[i]||{yes:0,no:0,happening:0,total:0};
+    const t=c.total||0;
+    const topPct=t>0?Math.max(pct(c.happening,t),pct(c.yes,t),pct(c.no,t)):0;
+    const topType=t>0?(c.happening>=c.yes&&c.happening>=c.no?'h':c.yes>=c.no?'y':'n'):'none';
+    return{title,i,t,topPct,topType,h:c.happening||0,y:c.yes||0,n:c.no||0};
+  }).filter(r=>r.t>0).sort((a,b)=>b.topPct-a.topPct);
+
+  if(ranked.length>0){
+    const top=ranked[0];
+    document.getElementById('cc-top-name').textContent=top.title;
+    const label=top.topType==='h'?'already happening':top.topType==='y'?'yes — coming':'won\'t happen';
+    document.getElementById('cc-top-pct').textContent=top.topPct+'% '+label;
+  }
+
+  const rowsEl=document.getElementById('conviction-rows');
+  const top5=ranked.slice(0,5);
+  rowsEl.innerHTML=top5.map(r=>{
+    const fillClass=r.topType==='h'?'fill-h':r.topType==='y'?'fill-y':'fill-n';
+    const badge=r.topPct>=80?`<span class="conv-badge badge-fire">${r.topPct}%</span>`:r.topPct<=30?`<span class="conv-badge badge-cold">${r.topPct}%</span>`:'';
+    return `<div class="conv-row">
+      <div class="conv-name">${r.title}${badge}</div>
+      <div class="conv-bar-track"><div class="conv-bar-fill ${fillClass}" style="width:${r.topPct}%"></div></div>
+      <div class="conv-pct">${r.topPct}%</div>
     </div>`;
-  });
-  body.innerHTML = rows;
+  }).join('');
 }
 
-function renderVotes(nodeIndex, counts, userVote) {
-  const c = counts[nodeIndex] || {yes:0,no:0,happening:0,total:0};
-  const total = c.total;
-  const yp = pct(c.yes, total);
-  const np = pct(c.no, total);
-  const hp = pct(c.happening, total);
-  const voted = !!userVote;
-  return `<div class="vote-panel" id="vote-panel-${nodeIndex}">
-    <div class="vote-label">${voted ? 'Public consensus — ' + total.toLocaleString() + ' votes' : 'Cast your vote'}</div>
-    ${!voted ? `<p class="vote-cta">Is this domino already falling — or just a theory? You've read the argument. Now call it.</p>` : ''}
-    ${voted ? `
-    <div class="vote-bars">
-      <div class="vote-bar-row ${userVote==='happening'?'vote-highlight':''}">
-        <span class="vote-bar-label">Already happening</span>
-        <div class="vote-bar-track"><div class="vote-bar-fill vote-happening" style="width:${hp}%"></div></div>
-        <span class="vote-bar-pct">${hp}%</span>
-      </div>
-      <div class="vote-bar-row ${userVote==='yes'?'vote-highlight':''}">
-        <span class="vote-bar-label">Yes — coming</span>
-        <div class="vote-bar-track"><div class="vote-bar-fill vote-yes" style="width:${yp}%"></div></div>
-        <span class="vote-bar-pct">${yp}%</span>
-      </div>
-      <div class="vote-bar-row ${userVote==='no'?'vote-highlight':''}">
-        <span class="vote-bar-label">No — won't happen</span>
-        <div class="vote-bar-track"><div class="vote-bar-fill vote-no" style="width:${np}%"></div></div>
-        <span class="vote-bar-pct">${np}%</span>
-      </div>
-    </div>` : `
-    <div class="vote-btns">
-      <button class="vote-btn vote-btn-happening" onclick="submitVote(${nodeIndex},'happening')">Already happening</button>
-      <button class="vote-btn vote-btn-yes" onclick="submitVote(${nodeIndex},'yes')">Yes — coming</button>
-      <button class="vote-btn vote-btn-no" onclick="submitVote(${nodeIndex},'no')">No — won't happen</button>
-    </div>`}
-  </div>`;
+function updateNodeRow(i,counts,userVotes){
+  const c=counts[i]||{yes:0,no:0,happening:0,total:0};
+  const t=c.total||0;
+  const barEl=document.getElementById(`bar-${i}`);
+  const countEl=document.getElementById(`count-${i}`);
+  if(barEl&&t>0){
+    const hp=pct(c.happening,t);const yp=pct(c.yes,t);const np=pct(c.no,t);
+    barEl.innerHTML=`<div class="bar-mini-seg fill-h" style="width:${hp}%"></div><div class="bar-mini-seg fill-y" style="width:${yp}%"></div><div class="bar-mini-seg fill-n" style="width:${np}%"></div>`;
+  }
+  if(countEl)countEl.textContent=t>0?t+' vote'+(t===1?'':'s'):'';
+  const uv=userVotes[i];
+  const voteArea=document.getElementById(`vote-area-${i}`);
+  if(voteArea&&uv){
+    const labels={happening:'Already happening',yes:'Yes — coming',no:"Won't happen"};
+    voteArea.innerHTML=`<span class="voted-label">You voted: ${labels[uv]}</span>`;
+  }
 }
 
-async function submitVote(nodeIndex, vote) {
-  const stored = JSON.parse(localStorage.getItem('jiang_votes') || '{}');
-  if (stored[nodeIndex]) return;
-  stored[nodeIndex] = vote;
-  localStorage.setItem('jiang_votes', JSON.stringify(stored));
-  await castVote(nodeIndex, vote);
-  const counts = await fetchVotes();
-  globalCounts = counts;
-  userVotes = stored;
-  const panel = document.getElementById(`vote-panel-${nodeIndex}`);
-  if (panel) panel.outerHTML = renderVotes(nodeIndex, counts, vote);
-  renderLivePanel(counts);
+async function submitVote(nodeIndex,vote){
+  const stored=JSON.parse(localStorage.getItem('jiang_votes')||'{}');
+  if(stored[nodeIndex])return;
+  stored[nodeIndex]=vote;
+  localStorage.setItem('jiang_votes',JSON.stringify(stored));
+  await castVote(nodeIndex,vote);
+  const counts=await fetchVotes();
+  globalCounts=counts;
+  userVotes=stored;
+  updateNodeRow(nodeIndex,counts,stored);
+  updateCommandCenter(counts);
 }
 
-function copyLink(btn) {
-  navigator.clipboard.writeText('https://thesimulationgame.quest').then(() => {
-    const orig = btn.innerHTML;
-    btn.innerHTML = '<svg class="share-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Copied';
-    setTimeout(() => { btn.innerHTML = orig; }, 2000);
+function toggleNode(i){
+  const row=document.getElementById(`node-row-${i}`);
+  if(row)row.classList.toggle('open');
+}
+
+function copyLink(btn){
+  navigator.clipboard.writeText('https://thesimulationgame.quest').then(()=>{
+    const orig=btn.innerHTML;
+    btn.innerHTML='<svg class="share-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Copied';
+    setTimeout(()=>{btn.innerHTML=orig;},2000);
   });
 }
 
-function handleSubscribe(e) {
-  const input = document.getElementById('email-input');
-  const confirm = document.getElementById('email-confirm');
-  if (!input.value || !input.value.includes('@')) { e.preventDefault(); return; }
-  confirm.style.display = 'block';
+function handleSubscribe(e){
+  const input=document.getElementById('email-input');
+  const confirm=document.getElementById('email-confirm');
+  if(!input.value||!input.value.includes('@')){e.preventDefault();return;}
+  confirm.style.display='block';
 }
 
-function toggleLivePanel() {
-  const panel = document.getElementById('live-panel');
-  if (panel.classList.contains('hidden')) { openLivePanel(); } else { closeLivePanel(); }
-}
-
-function closeLivePanel() {
-  document.getElementById('live-panel').classList.add('hidden');
-  document.getElementById('live-toggle').style.display = 'block';
-}
-
-function openLivePanel() {
-  document.getElementById('live-panel').classList.remove('hidden');
-  document.getElementById('live-toggle').style.display = 'none';
-}
-
-async function refreshLivePanel() {
-  const counts = await fetchVotes();
-  globalCounts = counts;
-  renderLivePanel(counts);
-}
-
-setInterval(refreshLivePanel, 15000);
+let globalCounts={};
+let userVotes={};
 
 const nodes=[
 {tag:'war',label:'War',status:'confirmed',statusDate:'Feb 2026',title:'US-Israel strike Iran',sub:'Called May 2024. Happened Feb 2026.',detail:'Jiang predicted in May 2024 that a second Trump term would go to war with Iran. On February 13 2026 the US and Israel launched coordinated strikes on Iranian nuclear facilities. He also predicted the exact rhetorical framing Trump would use — that Iran was the world\'s number one state sponsor of terror and had killed its own citizens in protests. Trump said those exact words in his February 28 address. This was written down a year before he said it.'},
@@ -536,78 +576,75 @@ const nodes=[
 {tag:'end',label:'Endgame',status:'pending',title:'Pax Judaica — AI surveillance state',sub:'Israel becomes global tech capital.',detail:'Tech companies migrate to wherever power concentrates. Nvidia, Oracle, Google, Microsoft relocate significant operations to Israel as it emerges as the dominant power in the post-war order. Israel becomes the center of a global AI surveillance infrastructure — the architecture through which the new world order operates. Not a traditional empire of territory but an empire of information, identity, and financial access. The system that emerges is consistent across every jurisdiction currently piloting it: verified digital identity required to participate in the economy.'},
 {tag:'end',label:'Endgame',status:'pending',title:'Digital ID — mark of the beast goes live',sub:'CBDC + biometric ID = full control layer.',detail:'Whatever it is called — financial inclusion, digital public infrastructure, CBDC programmability — its functional description is consistent: a system in which participation in the economy requires a verified digital identity, transactions are visible and programmable, and access can be revoked. The Bank for International Settlements has explicitly stated that CBDCs give central banks absolute control over the rules and regulations determining money use. The European Parliament hosted a panel in March 2026 warning that programmability means your money can be frozen for stepping outside a fifteen-minute city, expressing wrong opinions, or simply being on the wrong list. The Book of Revelation called this the mark of the beast. The WEF calls it financial inclusion. Same destination.'}
 ];
-const tagActive = {war:'active-war',econ:'active-econ',relig:'active-relig',geo:'active-geo',end:'active-end'};
-let activeIndex = null;
-let globalCounts = {};
-let userVotes = {};
+const tagColors={war:'tag-war',econ:'tag-econ',relig:'tag-relig',geo:'tag-geo',end:'tag-end'};
+const tagLabels={war:'War',econ:'Economy',relig:'Religion',geo:'Geopolitics',end:'Endgame'};
+const statusClass={confirmed:'confirmed-badge',progress:'progress-badge',pending:'pending-badge'};
+const statusLabel={confirmed:'Confirmed',progress:'In progress',pending:'Pending'};
 
-function build() {
-  const c = document.getElementById('cascade');
-  nodes.forEach((n, i) => {
-    const wrap = document.createElement('div');
-    wrap.className = 'node-wrap';
-    const node = document.createElement('div');
-    node.className = 'node';
-    node.setAttribute('role', 'button');
-    node.setAttribute('aria-expanded', 'false');
-    node.setAttribute('tabindex', '0');
-    const statusLabel = n.status==='confirmed' ? 'Confirmed' : n.status==='progress' ? 'In progress' : 'Pending';
-    const statusClass = n.status==='confirmed' ? 'status-confirmed' : n.status==='progress' ? 'status-progress' : 'status-pending';
-    const dotClass = n.status==='confirmed' ? 'dot-confirmed' : n.status==='progress' ? 'dot-progress' : 'dot-pending';
-    const dateStr = n.statusDate ? ` &mdash; ${n.statusDate}` : '';
-    node.innerHTML = `<div class="node-header"><div class="node-left"><span class="tag tag-${n.tag}">${n.label}</span><div class="node-text"><div class="node-title" style="display:flex;align-items:center;gap:0;flex-wrap:wrap">${n.title}<span class="status-badge ${statusClass}"><span class="status-dot ${dotClass}"></span>${statusLabel}${dateStr}</span></div><div class="node-sub">${n.sub}</div></div></div><span class="chevron">&#9660;</span></div>`;
-    const detail = document.createElement('div');
-    detail.className = 'detail';
-    const uv = userVotes[i] || null;
-    const voteHtml = renderVotes(i, globalCounts, uv);
-    detail.innerHTML = `<div class="detail-inner"><p>${n.detail}</p>${voteHtml}</div>`;
-    node.addEventListener('click', () => toggle(i));
-    node.addEventListener('keydown', e => { if (e.key==='Enter'||e.key===' ') { e.preventDefault(); toggle(i); } });
-    wrap.appendChild(node);
-    wrap.appendChild(detail);
-    c.appendChild(wrap);
-    if (i < nodes.length - 1) { const conn = document.createElement('div'); conn.className = 'connector'; c.appendChild(conn); }
+function build(){
+  const c=document.getElementById('cascade');
+  if(!c)return;
+  c.innerHTML='';
+  nodes.forEach((n,i)=>{
+    const uv=userVotes[i]||null;
+    const cnt=globalCounts[i]||{yes:0,no:0,happening:0,total:0};
+    const t=cnt.total||0;
+    const hp=pct(cnt.happening,t);const yp=pct(cnt.yes,t);const np=pct(cnt.no,t);
+    const voteHTML=uv
+      ?`<span class="voted-label">You voted: ${uv==='happening'?'Already happening':uv==='yes'?'Yes — coming':"Won't happen"}</span>`
+      :`<div class="vote-btn-row">
+          <button class="vote-mini vmh" onclick="event.stopPropagation();submitVote(${i},'happening')">Already happening</button>
+          <button class="vote-mini vmy" onclick="event.stopPropagation();submitVote(${i},'yes')">Yes — coming</button>
+          <button class="vote-mini vmn" onclick="event.stopPropagation();submitVote(${i},'no')">Won't happen</button>
+        </div>`;
+    const row=document.createElement('div');
+    row.className='node-row';
+    row.id=`node-row-${i}`;
+    row.innerHTML=`
+      <div class="node-main" onclick="toggleNode(${i})">
+        <div class="node-info">
+          <span class="tag ${tagColors[n.tag]}">${tagLabels[n.tag]}</span>
+          <div class="node-text">
+            <div class="node-title-row">${n.title}<span class="status-badge ${statusClass[n.status]}">${statusLabel[n.status]}${n.statusDate?' &mdash; '+n.statusDate:''}</span></div>
+            <div class="node-sub-row">${n.sub}</div>
+          </div>
+        </div>
+        <div class="node-bar-col">
+          <div class="bar-mini-track" id="bar-${i}">
+            ${t>0?`<div class="bar-mini-seg fill-h" style="width:${hp}%"></div><div class="bar-mini-seg fill-y" style="width:${yp}%"></div><div class="bar-mini-seg fill-n" style="width:${np}%"></div>`:''}
+          </div>
+          <div class="vote-mini-count" id="count-${i}">${t>0?t+' vote'+(t===1?'':'s'):''}</div>
+        </div>
+        <span class="node-chevron">&#9660;</span>
+      </div>
+      <div class="node-detail">
+        <div class="node-detail-text">${n.detail}</div>
+        <div id="vote-area-${i}">${voteHTML}</div>
+      </div>`;
+    c.appendChild(row);
   });
 }
 
-function toggle(i) {
-  const allNodes = document.querySelectorAll('.node');
-  const allDetails = document.querySelectorAll('.detail');
-  if (activeIndex === i) {
-    allNodes[i].classList.remove('active', tagActive[nodes[i].tag]);
-    allNodes[i].setAttribute('aria-expanded', 'false');
-    allDetails[i].classList.remove('open');
-    activeIndex = null; return;
-  }
-  if (activeIndex !== null) {
-    allNodes[activeIndex].classList.remove('active', tagActive[nodes[activeIndex].tag]);
-    allNodes[activeIndex].setAttribute('aria-expanded', 'false');
-    allDetails[activeIndex].classList.remove('open');
-  }
-  allNodes[i].classList.add('active', tagActive[nodes[i].tag]);
-  allNodes[i].setAttribute('aria-expanded', 'true');
-  allDetails[i].classList.add('open');
-  activeIndex = i;
-  setTimeout(() => { allNodes[i].scrollIntoView({behavior:'smooth',block:'nearest'}); }, 50);
+async function refreshData(){
+  const counts=await fetchVotes();
+  globalCounts=counts;
+  updateCommandCenter(counts);
+  nodes.forEach((_,i)=>updateNodeRow(i,counts,userVotes));
 }
 
-document.addEventListener('DOMContentLoaded', function() {
-  // Always build immediately with empty counts
-  globalCounts = {};
-  userVotes = JSON.parse(localStorage.getItem('jiang_votes') || '{}');
+setInterval(refreshData,15000);
+
+document.addEventListener('DOMContentLoaded',function(){
+  globalCounts={};
+  userVotes=JSON.parse(localStorage.getItem('jiang_votes')||'{}');
   build();
-  // Then fetch votes and update
-  fetchVotes().then(counts => {
-    globalCounts = counts;
-    renderLivePanel(counts);
-    // Update all vote panels with fresh data
-    document.querySelectorAll('.vote-panel').forEach((panel, i) => {
-      const uv = userVotes[i] || null;
-      panel.outerHTML = renderVotes(i, counts, uv);
-    });
-  }).catch(err => {
-    console.error('Votes fetch failed:', err);
-    renderLivePanel({});
+  updateCommandCenter({});
+  fetchVotes().then(counts=>{
+    globalCounts=counts;
+    updateCommandCenter(counts);
+    nodes.forEach((_,i)=>updateNodeRow(i,counts,userVotes));
+  }).catch(err=>{
+    console.error('Init fetch failed:',err);
   });
 });
 </script>
