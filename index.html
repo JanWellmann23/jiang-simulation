@@ -253,6 +253,7 @@ button,a,.node,.share-btn,.vote-btn,.email-btn{-webkit-tap-highlight-color:trans
 .conv-badge{font-size:9px;padding:1px 5px;border-radius:8px;font-weight:500;margin-left:3px}
 .badge-fire{background:#FAECE7;color:#712B13}
 .badge-cold{background:#E6F1FB;color:#0C447C}
+.conv-section-label{font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:6px;margin-top:4px}
 .node-row{background:var(--bg);border:0.5px solid var(--border);border-radius:var(--radius);margin-bottom:6px;overflow:hidden;cursor:pointer;transition:border-color 0.15s;-webkit-tap-highlight-color:transparent}
 .node-row:hover{border-color:var(--border2);background:var(--bg2)}
 .node-row.open{border-color:var(--border2)}
@@ -290,6 +291,19 @@ button,a,.node,.share-btn,.vote-btn,.email-btn{-webkit-tap-highlight-color:trans
 .conv-name{width:120px}
 .node-bar-col{display:none}
 }
+
+.vote-results{margin-top:4px}
+.vote-result-row{display:flex;align-items:center;gap:8px;margin-bottom:7px}
+.vr-label{font-size:12px;font-weight:500;width:140px;flex-shrink:0}
+.vr-track{flex:1;height:6px;background:var(--bg3);border-radius:3px;overflow:hidden}
+.vr-fill{height:100%;border-radius:3px;transition:width 0.5s ease}
+.vr-pct{font-size:12px;font-weight:500;width:34px;text-align:right;flex-shrink:0}
+.vr-count{font-size:11px;color:var(--text3);width:28px;text-align:right;flex-shrink:0}
+.vr-total{font-size:11px;color:var(--text3);margin-top:8px;padding-top:8px;border-top:0.5px solid var(--border)}
+.vr-total strong{color:var(--text2);font-weight:500}
+.vote-prompt-label{font-size:12px;color:var(--text3);margin-bottom:8px;font-style:italic}
+.vote-prompt{}
+@media(max-width:480px){.vr-label{width:110px;font-size:11px}}
 </style>
 </head>
 <body>
@@ -470,33 +484,58 @@ function updateCommandCenter(counts){
   document.getElementById('cc-pct-y').textContent=grand>0?pct(totalY,grand)+'%':'—';
   document.getElementById('cc-pct-n').textContent=grand>0?pct(totalN,grand)+'%':'—';
 
-  // Conviction ranking
-  const ranked=nodeShortTitles.map((title,i)=>{
+  const allRanked=nodeShortTitles.map((title,i)=>{
     const c=counts[i]||{yes:0,no:0,happening:0,total:0};
     const t=c.total||0;
-    const topPct=t>0?Math.max(pct(c.happening,t),pct(c.yes,t),pct(c.no,t)):0;
+    const hp=t>0?pct(c.happening,t):0;
+    const yp=t>0?pct(c.yes,t):0;
+    const np=t>0?pct(c.no,t):0;
+    const topPct=t>0?Math.max(hp,yp,np):0;
     const topType=t>0?(c.happening>=c.yes&&c.happening>=c.no?'h':c.yes>=c.no?'y':'n'):'none';
-    return{title,i,t,topPct,topType,h:c.happening||0,y:c.yes||0,n:c.no||0};
-  }).filter(r=>r.t>0).sort((a,b)=>b.topPct-a.topPct);
+    return{title,i,t,topPct,topType,hp,yp,np,h:c.happening||0,y:c.yes||0,n:c.no||0};
+  }).filter(r=>r.t>0);
 
-  if(ranked.length>0){
-    const top=ranked[0];
-    document.getElementById('cc-top-name').textContent=top.title;
-    const label=top.topType==='h'?'already happening':top.topType==='y'?'yes — coming':'won\'t happen';
-    document.getElementById('cc-top-pct').textContent=top.topPct+'% '+label;
-  }
+  if(allRanked.length===0)return;
+
+  const top=allRanked.reduce((a,b)=>a.topPct>b.topPct?a:b);
+  document.getElementById('cc-top-name').textContent=top.title;
+  const tlabel=top.topType==='h'?'already happening':top.topType==='y'?'yes — coming':'won\'t happen';
+  document.getElementById('cc-top-pct').textContent=top.topPct+'% '+tlabel;
 
   const rowsEl=document.getElementById('conviction-rows');
-  const top5=ranked.slice(0,5);
-  rowsEl.innerHTML=top5.map(r=>{
-    const fillClass=r.topType==='h'?'fill-h':r.topType==='y'?'fill-y':'fill-n';
-    const badge=r.topPct>=80?`<span class="conv-badge badge-fire">${r.topPct}%</span>`:r.topPct<=30?`<span class="conv-badge badge-cold">${r.topPct}%</span>`:'';
+
+  // Section 1: Highest conviction YES (green) — sorted by yes%
+  const yesLeaders=allRanked.filter(r=>r.yp>0).sort((a,b)=>b.yp-a.yp);
+  // Section 2: Highest conviction NO (red) — sorted by no%
+  const noLeaders=allRanked.filter(r=>r.np>0).sort((a,b)=>b.np-a.np);
+  // Section 3: Already happening — sorted by happening%
+  const happeningLeaders=allRanked.filter(r=>r.hp>0).sort((a,b)=>b.hp-a.hp);
+
+  function convRow(r,type){
+    const val=type==='y'?r.yp:type==='n'?r.np:r.hp;
+    const fillClass=type==='y'?'fill-y':type==='n'?'fill-n':'fill-h';
+    const badge=val>=80?`<span class="conv-badge badge-fire">${val}%</span>`:val<=25?`<span class="conv-badge badge-cold">${val}%</span>`:'';
     return `<div class="conv-row">
       <div class="conv-name">${r.title}${badge}</div>
-      <div class="conv-bar-track"><div class="conv-bar-fill ${fillClass}" style="width:${r.topPct}%"></div></div>
-      <div class="conv-pct">${r.topPct}%</div>
+      <div class="conv-bar-track"><div class="conv-bar-fill ${fillClass}" style="width:${val}%"></div></div>
+      <div class="conv-pct">${val}%</div>
     </div>`;
-  }).join('');
+  }
+
+  let html='';
+  if(yesLeaders.length>0){
+    html+=`<div class="conv-section-label" style="color:#1D9E75">Yes — will happen</div>`;
+    html+=yesLeaders.slice(0,5).map(r=>convRow(r,'y')).join('');
+  }
+  if(noLeaders.length>0){
+    html+=`<div class="conv-section-label" style="color:#D85A30;margin-top:12px">Won't happen</div>`;
+    html+=noLeaders.slice(0,5).map(r=>convRow(r,'n')).join('');
+  }
+  if(happeningLeaders.length>0){
+    html+=`<div class="conv-section-label" style="color:#7F77DD;margin-top:12px">Already happening</div>`;
+    html+=happeningLeaders.slice(0,5).map(r=>convRow(r,'h')).join('');
+  }
+  rowsEl.innerHTML=html;
 }
 
 function updateNodeRow(i,counts,userVotes){
@@ -512,8 +551,30 @@ function updateNodeRow(i,counts,userVotes){
   const uv=userVotes[i];
   const voteArea=document.getElementById(`vote-area-${i}`);
   if(voteArea&&uv){
-    const labels={happening:'Already happening',yes:'Yes — coming',no:"Won't happen"};
-    voteArea.innerHTML=`<span class="voted-label">You voted: ${labels[uv]}</span>`;
+    const c2=counts[i]||{yes:0,no:0,happening:0,total:0};
+    const t2=c2.total||0;
+    const hp3=pct(c2.happening,t2),yp3=pct(c2.yes,t2),np3=pct(c2.no,t2);
+    voteArea.innerHTML=`<div class="vote-results">
+      <div class="vote-result-row">
+        <span class="vr-label" style="color:#7F77DD">Already happening</span>
+        <div class="vr-track"><div class="vr-fill" style="width:${hp3}%;background:#7F77DD"></div></div>
+        <span class="vr-pct" style="color:#7F77DD">${hp3}%</span>
+        <span class="vr-count">${c2.happening||0}</span>
+      </div>
+      <div class="vote-result-row">
+        <span class="vr-label" style="color:#1D9E75">Yes — coming</span>
+        <div class="vr-track"><div class="vr-fill" style="width:${yp3}%;background:#1D9E75"></div></div>
+        <span class="vr-pct" style="color:#1D9E75">${yp3}%</span>
+        <span class="vr-count">${c2.yes||0}</span>
+      </div>
+      <div class="vote-result-row">
+        <span class="vr-label" style="color:#D85A30">Won't happen</span>
+        <div class="vr-track"><div class="vr-fill" style="width:${np3}%;background:#D85A30"></div></div>
+        <span class="vr-pct" style="color:#D85A30">${np3}%</span>
+        <span class="vr-count">${c2.no||0}</span>
+      </div>
+      <div class="vr-total">${t2} vote${t2===1?'':'s'} — you voted: <strong>${uv==='happening'?'already happening':uv==='yes'?'yes — coming':"won't happen"}</strong></div>
+    </div>`;
   }
 }
 
@@ -590,12 +651,36 @@ function build(){
     const cnt=globalCounts[i]||{yes:0,no:0,happening:0,total:0};
     const t=cnt.total||0;
     const hp=pct(cnt.happening,t);const yp=pct(cnt.yes,t);const np=pct(cnt.no,t);
+    const hp2=pct(cnt.happening,t),yp2=pct(cnt.yes,t),np2=pct(cnt.no,t);
     const voteHTML=uv
-      ?`<span class="voted-label">You voted: ${uv==='happening'?'Already happening':uv==='yes'?'Yes — coming':"Won't happen"}</span>`
-      :`<div class="vote-btn-row">
-          <button class="vote-mini vmh" onclick="event.stopPropagation();submitVote(${i},'happening')">Already happening</button>
-          <button class="vote-mini vmy" onclick="event.stopPropagation();submitVote(${i},'yes')">Yes — coming</button>
-          <button class="vote-mini vmn" onclick="event.stopPropagation();submitVote(${i},'no')">Won't happen</button>
+      ?`<div class="vote-results">
+          <div class="vote-result-row">
+            <span class="vr-label" style="color:#7F77DD">Already happening</span>
+            <div class="vr-track"><div class="vr-fill" style="width:${hp2}%;background:#7F77DD"></div></div>
+            <span class="vr-pct" style="color:#7F77DD">${hp2}%</span>
+            <span class="vr-count">${cnt.happening||0}</span>
+          </div>
+          <div class="vote-result-row">
+            <span class="vr-label" style="color:#1D9E75">Yes — coming</span>
+            <div class="vr-track"><div class="vr-fill" style="width:${yp2}%;background:#1D9E75"></div></div>
+            <span class="vr-pct" style="color:#1D9E75">${yp2}%</span>
+            <span class="vr-count">${cnt.yes||0}</span>
+          </div>
+          <div class="vote-result-row">
+            <span class="vr-label" style="color:#D85A30">Won't happen</span>
+            <div class="vr-track"><div class="vr-fill" style="width:${np2}%;background:#D85A30"></div></div>
+            <span class="vr-pct" style="color:#D85A30">${np2}%</span>
+            <span class="vr-count">${cnt.no||0}</span>
+          </div>
+          <div class="vr-total">${t} vote${t===1?'':'s'} — you voted: <strong>${uv==='happening'?'already happening':uv==='yes'?'yes — coming':"won't happen"}</strong></div>
+        </div>`
+      :`<div class="vote-prompt">
+          <div class="vote-prompt-label">Is this domino already falling?</div>
+          <div class="vote-btn-row">
+            <button class="vote-mini vmh" onclick="event.stopPropagation();submitVote(${i},'happening')">Already happening</button>
+            <button class="vote-mini vmy" onclick="event.stopPropagation();submitVote(${i},'yes')">Yes — coming</button>
+            <button class="vote-mini vmn" onclick="event.stopPropagation();submitVote(${i},'no')">Won't happen</button>
+          </div>
         </div>`;
     const row=document.createElement('div');
     row.className='node-row';
