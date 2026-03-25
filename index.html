@@ -443,23 +443,24 @@ const nodeShortTitles=[
 
 async function fetchVotes(){
   try{
-    const res=await fetch(`${SUPABASE_URL}/rest/v1/votes?select=node_index,vote&limit=100000`,{
+    const res=await fetch(`${SUPABASE_URL}/rest/v1/rpc/get_vote_counts`,{
+      method:'POST',
       headers:{
         'apikey':SUPABASE_KEY,
         'Authorization':`Bearer ${SUPABASE_KEY}`,
-        'Range-Unit':'items',
-        'Prefer':'count=exact'
-      }
+        'Content-Type':'application/json'
+      },
+      body:'{}'
     });
-    if(!res.ok){console.error('Fetch failed:',res.status);return{};}
+    if(!res.ok){console.error('Fetch failed:',res.status,await res.text());return{};}
     const data=await res.json();
     if(!Array.isArray(data)){console.error('Bad data:',data);return{};}
     const counts={};
     data.forEach(row=>{
       const idx=parseInt(row.node_index);
       if(!counts[idx])counts[idx]={yes:0,no:0,happening:0,total:0};
-      counts[idx][row.vote]++;
-      counts[idx].total++;
+      counts[idx][row.vote]=parseInt(row.count);
+      counts[idx].total=(counts[idx].yes||0)+(counts[idx].no||0)+(counts[idx].happening||0);
     });
     return counts;
   }catch(e){console.error('fetchVotes error:',e);return{};}
